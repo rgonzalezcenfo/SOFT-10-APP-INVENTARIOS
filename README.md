@@ -1,0 +1,2 @@
+# SOFT-10-APP-INVENTARIOS
+Proyecto APLICACIÓN DE GESTIÓN DE INVENTARIOS para curso SOFT-10 Estructras de Datos

@@ -9,7 +9,6 @@ public class Producto {
     private String categoria;
     private LocalDate fechaVencimiento;
     private int cantidad;
-    private Producto siguiente;
     private ArrayList<String> listaImagenes;
 
     //Constructores
@@ -20,7 +19,6 @@ public class Producto {
         this.categoria = categoria;
         this.fechaVencimiento = fechaVencimiento;
         this.cantidad = cantidad;
-        this.siguiente = null;
         this.listaImagenes = new ArrayList<>();
     }
 
@@ -30,7 +28,6 @@ public class Producto {
         this.categoria = categoria;
         this.fechaVencimiento = null;
         this.cantidad = cantidad;
-        this.siguiente = null;
         this.listaImagenes = new ArrayList<>();
     }
 
@@ -61,10 +58,6 @@ public class Producto {
         return cantidad;
     }
 
-    public Producto getSiguiente() {
-        return siguiente;
-    }
-
     public ArrayList<String> getListaImagenes() {
         return listaImagenes;
     }
@@ -91,21 +84,14 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    public void setSiguiente(Producto siguiente) {
-        this.siguiente = siguiente;
-    }
-
     public void setListaImagenes(ArrayList<String> listaImagenes) {
         this.listaImagenes = listaImagenes;
     }
-
 
     //administracion de imagenes
     public void agregarImagen(String rutaImagen){
         listaImagenes.addLast(rutaImagen);
     }
-
-
 
     //equals
     public boolean equals(Producto producto){

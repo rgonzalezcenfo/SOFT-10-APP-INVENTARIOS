@@ -1,23 +1,37 @@
+import java.time.LocalDate;
+
 public class ListaProductos {
 
     //Atributos
-    private NodoProducto primero;
+    private Producto primero;
 
     //Constructor
     public ListaProductos() {
         this.primero = null;
     }
 
+
+    //estaVacia
+    private boolean estaVacia() {
+        return primero == null;
+    }
+
     //inserta un producto al inicio de la lista
-    public void insertarAlInicio(Producto producto) {
-        NodoProducto nuevo = new NodoProducto(producto);
+    public void insertarAlInicio(String nombre, double precio, String categoria, LocalDate fechaVencimiento, int cantidad) {
+        Producto nuevo = new Producto(nombre, precio, categoria, fechaVencimiento, cantidad);
+        nuevo.setSiguiente(primero);
+        primero = nuevo;
+    }
+
+    public void insertarAlInicio(String nombre, double precio, String categoria, int cantidad) {
+        Producto nuevo = new Producto(nombre, precio, categoria, cantidad);
         nuevo.setSiguiente(primero);
         primero = nuevo;
     }
 
     //inserta un producto al final de la lista
-    public void insertarAlFinal(Producto producto) {
-        NodoProducto nuevo = new NodoProducto(producto);
+    public void insertarAlFinal(String nombre, double precio, String categoria, LocalDate fechaVencimiento, int cantidad) {
+        Producto nuevo = new Producto(nombre, precio, categoria, fechaVencimiento, cantidad);
 
         //si la lista esta vacia el nuevo nodo queda de primero
         if (primero == null) {
@@ -26,7 +40,24 @@ public class ListaProductos {
         }
 
         //recorremos hasta el ultimo nodo
-        NodoProducto actual = primero;
+        Producto actual = primero;
+        while (actual.getSiguiente() != null) {
+            actual = actual.getSiguiente();
+        }
+        actual.setSiguiente(nuevo);
+    }
+
+    public void insertarAlFinal(String nombre, double precio, String categoria, int cantidad) {
+        Producto nuevo = new Producto(nombre, precio, categoria, cantidad);
+
+        //si la lista esta vacia el nuevo nodo queda de primero
+        if (primero == null) {
+            primero = nuevo;
+            return;
+        }
+
+        //recorremos hasta el ultimo nodo
+        Producto actual = primero;
         while (actual.getSiguiente() != null) {
             actual = actual.getSiguiente();
         }
@@ -34,10 +65,10 @@ public class ListaProductos {
     }
 
     //busca un producto por nombre y retorna su nodo, o null si no esta
-    public NodoProducto buscarProducto(String nombre) {
-        NodoProducto actual = primero;
+    public Producto buscarProducto(String nombre) {
+        Producto actual = primero;
         while (actual != null) {
-            if (actual.getProducto().getNombre().equals(nombre)) {
+            if (actual.getNombre().equals(nombre)) {
                 return actual;
             }
             actual = actual.getSiguiente();
@@ -47,6 +78,57 @@ public class ListaProductos {
 
     //Pendientes por implementar:
     // - eliminar
-    // - modificar
+    public Producto eliminar(String nombre){
+        if (estaVacia()) {
+            System.out.println("La lista está vacía.\n");
+            return null;
+        }
+
+        if(primero.getNombre().equals(nombre)){
+            Producto aux = primero;
+            primero = primero.getSiguiente();
+            return aux;
+        }
+
+        Producto temp = primero;
+        Producto anterior = temp;
+        while (temp != null && !temp.getNombre().equals(nombre)) {
+            anterior = temp;
+            temp = temp.getSiguiente();
+        }
+        if (temp == null) {
+            System.out.println("No existe un producto con ese nombre");
+            return null;
+        }
+        anterior.setSiguiente(temp.getSiguiente());
+        return temp;
+    }
+
+
+    //mostrar
+    public void mostrar(){
+        Producto temp = primero;
+        if (estaVacia()) System.out.println("La lista está vacía.\n");
+
+        while (temp != null) {
+            System.out.println(temp);
+            temp = temp.getSiguiente();
+        }
+    }
+
     // - reporte de costos
+    public void reporteCostos(){
+        Producto temp = primero;
+        if (estaVacia()) System.out.println("La lista está vacía.\n");
+
+        double total = 0;
+
+        while (temp != null) {
+            System.out.println("\n" + temp.getCantidad() + "x " + temp.getNombre() + "| Precio unitario: " + temp.getPrecio() + "| Precio: " + temp.getPrecioTotal());
+            total += temp.getPrecioTotal();
+            temp = temp.getSiguiente();
+        }
+        System.out.println("--- Total: " + total + " ---");
+    }
+
 }

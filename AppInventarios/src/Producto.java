@@ -10,6 +10,7 @@ public class Producto {
     private LocalDate fechaVencimiento;
     private int cantidad;
     private ArrayList<String> listaImagenes;
+    private Producto siguiente;
 
     //Constructores
 
@@ -20,6 +21,7 @@ public class Producto {
         this.fechaVencimiento = fechaVencimiento;
         this.cantidad = cantidad;
         this.listaImagenes = new ArrayList<>();
+        this.siguiente = null;
     }
 
     public Producto(String nombre, double precio, String categoria, int cantidad) {
@@ -29,6 +31,7 @@ public class Producto {
         this.fechaVencimiento = null;
         this.cantidad = cantidad;
         this.listaImagenes = new ArrayList<>();
+        this.siguiente = null;
     }
 
     //getters
@@ -62,6 +65,10 @@ public class Producto {
         return listaImagenes;
     }
 
+    public Producto getSiguiente() {
+        return siguiente;
+    }
+
     //setters
 
     public void setNombre(String nombre) {
@@ -86,6 +93,10 @@ public class Producto {
 
     public void setListaImagenes(ArrayList<String> listaImagenes) {
         this.listaImagenes = listaImagenes;
+    }
+
+    public void setSiguiente(Producto siguiente) {
+        this.siguiente = siguiente;
     }
 
     //administracion de imagenes

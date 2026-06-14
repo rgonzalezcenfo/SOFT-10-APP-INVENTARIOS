@@ -16,29 +16,16 @@ public class ListaProductos {
         return primero == null;
     }
 
-    //inserta un producto al inicio de la lista
-    public void insertarAlInicio(String nombre, double precio, String categoria, LocalDate fechaVencimiento, int cantidad) {
-        Producto nuevo = new Producto(nombre, precio, categoria, fechaVencimiento, cantidad);
+    public void insertarAlInicio(Producto nuevo) {
         nuevo.setSiguiente(primero);
         primero = nuevo;
     }
-
-    public void insertarAlInicio(String nombre, double precio, String categoria, int cantidad) {
-        Producto nuevo = new Producto(nombre, precio, categoria, cantidad);
-        nuevo.setSiguiente(primero);
-        primero = nuevo;
-    }
-
-    //inserta un producto al final de la lista
-    public void insertarAlFinal(String nombre, double precio, String categoria, LocalDate fechaVencimiento, int cantidad) {
-        Producto nuevo = new Producto(nombre, precio, categoria, fechaVencimiento, cantidad);
-
+    public void insertarAlFinal(Producto nuevo) {
         //si la lista esta vacia el nuevo nodo queda de primero
         if (primero == null) {
             primero = nuevo;
             return;
         }
-
         //recorremos hasta el ultimo nodo
         Producto actual = primero;
         while (actual.getSiguiente() != null) {
@@ -46,24 +33,6 @@ public class ListaProductos {
         }
         actual.setSiguiente(nuevo);
     }
-
-    public void insertarAlFinal(String nombre, double precio, String categoria, int cantidad) {
-        Producto nuevo = new Producto(nombre, precio, categoria, cantidad);
-
-        //si la lista esta vacia el nuevo nodo queda de primero
-        if (primero == null) {
-            primero = nuevo;
-            return;
-        }
-
-        //recorremos hasta el ultimo nodo
-        Producto actual = primero;
-        while (actual.getSiguiente() != null) {
-            actual = actual.getSiguiente();
-        }
-        actual.setSiguiente(nuevo);
-    }
-
     //busca un producto por nombre y retorna su nodo, o null si no esta
     public Producto buscarProducto(String nombre) {
         Producto actual = primero;

@@ -11,6 +11,8 @@ public class Producto {
     private int cantidad;
     private ArrayList<String> listaImagenes;
     private Producto siguiente;
+    private Producto izquierda;
+    private Producto derecha;
 
     //Constructores
 
@@ -22,6 +24,8 @@ public class Producto {
         this.cantidad = cantidad;
         this.listaImagenes = new ArrayList<>();
         this.siguiente = null;
+        this.izquierda = null;
+        this.derecha = null;
     }
 
     public Producto(String nombre, double precio, String categoria, int cantidad) {
@@ -32,6 +36,8 @@ public class Producto {
         this.cantidad = cantidad;
         this.listaImagenes = new ArrayList<>();
         this.siguiente = null;
+        this.izquierda = null;
+        this.derecha = null;
     }
 
     //getters
@@ -69,6 +75,14 @@ public class Producto {
         return siguiente;
     }
 
+    public Producto getIzquierda() {
+        return izquierda;
+    }
+
+    public Producto getDerecha() {
+        return derecha;
+    }
+
     //setters
 
     public void setNombre(String nombre) {
@@ -97,6 +111,14 @@ public class Producto {
 
     public void setSiguiente(Producto siguiente) {
         this.siguiente = siguiente;
+    }
+
+    public void setIzquierda(Producto izquierda) {
+        this.izquierda = izquierda;
+    }
+
+    public void setDerecha(Producto derecha) {
+        this.derecha = derecha;
     }
 
     //administracion de imagenes

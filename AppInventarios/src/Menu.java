@@ -201,7 +201,7 @@ public class Menu {
         }
         while (true){
             System.out.println("Cantiad actual del producto: "+productoModificar.getCantidad());
-            cantidadProduto = in.readLine();
+            String cantidadProduto = in.readLine();
             if(!cantidadProduto.isBlank()){
                 try{
                     int nuevaCantidad = Integer.parseInt(cantidadProduto);

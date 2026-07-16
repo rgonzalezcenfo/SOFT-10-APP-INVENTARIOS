@@ -50,4 +50,27 @@ public class ArbolProductos {
         }
     }
 
+    //busca un producto por nombre y retorna su nodo, o null si no esta
+    public Producto buscar(String nombre) {
+        Producto actual = raiz;
+        while (actual != null) {
+            int comparacion = nombre.compareTo(actual.getNombre());
+
+            //si el nombre es igual encontramos el producto
+            if (comparacion == 0) {
+                return actual;
+            }
+
+            //si el nombre es menor seguimos por la izquierda
+            if (comparacion < 0) {
+                actual = actual.getIzquierda();
+            } else {
+                //si el nombre es mayor seguimos por la derecha
+                actual = actual.getDerecha();
+            }
+        }
+        //si llegamos a null no existe
+        return null;
+    }
+
 }

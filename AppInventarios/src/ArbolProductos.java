@@ -73,4 +73,23 @@ public class ArbolProductos {
         return null;
     }
 
+    //muestra el inventario ordenado alfabeticamente recorriendo en inorden
+    public void recorridoInorden() {
+        if (estaVacio()) {
+            System.out.println("El arbol esta vacio.");
+            return;
+        }
+        inorden(raiz);
+    }
+
+    //metodo auxiliar recursivo: izquierda, nodo, derecha
+    private void inorden(Producto actual) {
+        if (actual == null) {
+            return;
+        }
+        inorden(actual.getIzquierda());
+        System.out.println(actual);
+        inorden(actual.getDerecha());
+    }
+
 }

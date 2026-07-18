@@ -1,3 +1,5 @@
+package Entidades;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -10,7 +12,6 @@ public class Producto {
     private LocalDate fechaVencimiento;
     private int cantidad;
     private ArrayList<String> listaImagenes;
-    private Producto siguiente;
     private Producto izquierda;
     private Producto derecha;
 
@@ -23,7 +24,6 @@ public class Producto {
         this.fechaVencimiento = fechaVencimiento;
         this.cantidad = cantidad;
         this.listaImagenes = new ArrayList<>();
-        this.siguiente = null;
         this.izquierda = null;
         this.derecha = null;
     }
@@ -35,7 +35,6 @@ public class Producto {
         this.fechaVencimiento = null;
         this.cantidad = cantidad;
         this.listaImagenes = new ArrayList<>();
-        this.siguiente = null;
         this.izquierda = null;
         this.derecha = null;
     }
@@ -71,9 +70,6 @@ public class Producto {
         return listaImagenes;
     }
 
-    public Producto getSiguiente() {
-        return siguiente;
-    }
 
     public Producto getIzquierda() {
         return izquierda;
@@ -108,11 +104,7 @@ public class Producto {
     public void setListaImagenes(ArrayList<String> listaImagenes) {
         this.listaImagenes = listaImagenes;
     }
-
-    public void setSiguiente(Producto siguiente) {
-        this.siguiente = siguiente;
-    }
-
+    
     public void setIzquierda(Producto izquierda) {
         this.izquierda = izquierda;
     }
@@ -133,9 +125,10 @@ public class Producto {
 
     //toString
     public String toString(){
-        String cadena = "\nProducto: " + nombre +
+        String cadena = "\nNombre del producto: " + nombre +
                         "\nPrecio: " + precio +
-                        "\nCategoria: " + categoria;
+                        "\nCategoria: " + categoria+
+                        "\nCantidad disponible: "+cantidad;
 
         if (fechaVencimiento != null) cadena = cadena + "\nFecha de Vencimiento: " + fechaVencimiento.getDayOfMonth() + "/" + fechaVencimiento.getMonthValue() + "/" + fechaVencimiento.getYear();
 

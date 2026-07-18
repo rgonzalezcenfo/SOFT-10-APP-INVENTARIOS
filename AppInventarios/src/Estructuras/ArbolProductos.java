@@ -1,3 +1,9 @@
+package Estructuras;
+
+import Entidades.Producto;
+import Excepciones.ArticuloYaExiste;
+import Excepciones.InventarioVacio;
+
 public class ArbolProductos {
 
     //Atributos
@@ -28,8 +34,7 @@ public class ArbolProductos {
 
             //si el nombre ya existe no se inserta
             if (comparacion == 0) {
-                System.out.println("Ya existe un producto con ese nombre");
-                return;
+                throw new ArticuloYaExiste("El articulo con el nombre: "+nuevo.getNombre()+" ya existe en el inventario");
             }
 
             //si el nombre es menor va hacia la izquierda
@@ -76,8 +81,7 @@ public class ArbolProductos {
     //muestra el inventario ordenado alfabeticamente recorriendo en inorden
     public void recorridoInorden() {
         if (estaVacio()) {
-            System.out.println("El arbol esta vacio.");
-            return;
+            throw new InventarioVacio("El inventario se encuentra vacio");
         }
         inorden(raiz);
     }
@@ -91,5 +95,48 @@ public class ArbolProductos {
         System.out.println(actual);
         inorden(actual.getDerecha());
     }
+    public void eliminar(Producto productoEliminar){
+
+    }
+    private Producto encontrarSucesor(Producto producto){
+        Producto padreSucesor = producto;
+        Producto sucesor = producto;
+        Producto nodoActual = producto.getDerecha();
+        while (nodoActual != null){
+            padreSucesor = sucesor;
+            sucesor = nodoActual;
+            nodoActual =  nodoActual.getIzquierda();
+        }
+        if(sucesor != producto.getDerecha()){
+            padreSucesor.setIzquierda(sucesor.getDerecha());
+            sucesor.setDerecha(producto.getDerecha());
+        }
+        return sucesor;
+    }
+    public void reporteInventario(){
+        System.out.println("==========Reporte de inventario==========");
+        recorridoInorden();
+        double totalInventario = calcularTotalInventario();
+        System.out.println("El total en el inventario es: "+totalInventario);
+    }
+    private double calcularTotalInventario() {
+        if (estaVacio()) {
+            throw new InventarioVacio("El inventario se encuentra vacio");
+        }
+
+        return calcularTotal(raiz);
+    }
+
+    private double calcularTotal(Producto actual) {
+        if (actual == null) {
+            return 0;
+        }
+
+        return calcularTotal(actual.getIzquierda())
+                + actual.getPrecioTotal()
+                + calcularTotal(actual.getDerecha());
+    }
+
+
 
 }

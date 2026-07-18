@@ -113,6 +113,29 @@ public class ArbolProductos {
         }
         return sucesor;
     }
+    public void reporteInventario(){
+        System.out.println("==========Reporte de inventario==========");
+        recorridoInorden();
+        double totalInventario = calcularTotalInventario();
+        System.out.println("El total en el inventario es: "+totalInventario);
+    }
+    private double calcularTotalInventario() {
+        if (estaVacio()) {
+            throw new InventarioVacio("El inventario se encuentra vacio");
+        }
+
+        return calcularTotal(raiz);
+    }
+
+    private double calcularTotal(Producto actual) {
+        if (actual == null) {
+            return 0;
+        }
+
+        return calcularTotal(actual.getIzquierda())
+                + actual.getPrecioTotal()
+                + calcularTotal(actual.getDerecha());
+    }
 
 
 

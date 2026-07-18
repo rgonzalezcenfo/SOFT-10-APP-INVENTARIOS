@@ -5,6 +5,7 @@ import Entidades.Tienda;
 import Entidades.Usuario;
 import Estructuras.ArbolProductos;
 import Excepciones.ArticuloYaExiste;
+import Excepciones.InventarioVacio;
 import LogicaDeNegocio.AdministradorArbolInventario;
 import LogicaDeNegocio.AdministradorClientes;
 import LogicaDeNegocio.AdministradorCola;
@@ -39,7 +40,11 @@ public class Menu {
                     break;
 
                 case "2":
-                    tienda.getInnventario().recorridoInorden();
+                    try {
+                        tienda.getInnventario().recorridoInorden();
+                    }catch(InventarioVacio e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case "3":
@@ -50,12 +55,16 @@ public class Menu {
                     //eliminarProducto();
                     break;
                 case "5":
-
+                    try {
+                        tienda.getInnventario().reporteInventario();
+                    }catch (InventarioVacio e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "6":
                     Usuario usuarioNuevo = AdministradorClientes.crearUsuarioCLI(tienda.getInnventario());
                     if(usuarioNuevo == null) {
-                        System.out.println("El usuario no pudo ser ");
+                        System.out.println("El usuario no pudo ser vacio ");
                     }else {
                         tienda.getColaUsuarios().agregarUsuario(usuarioNuevo);
                     }

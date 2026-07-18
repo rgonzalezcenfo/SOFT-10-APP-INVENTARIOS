@@ -22,11 +22,11 @@ public class ColaUsuarios {
         colaClientes.sort(Comparator.comparingInt(Usuario::getPrioridad));
     }
     public Usuario eliminarUsuario(){
-        if (colaClientes.isEmpty()) throw new ColaVacia("No hay elementos en la cola");
+        if (colaClientes.isEmpty()) throw new ColaVacia("No hay clientes en la cola");
         return colaClientes.removeFirst();
     }
     public Usuario verFrente(){
-        if (colaClientes.isEmpty()) throw new ColaVacia("No hay elementos en la cola");
+        if (colaClientes.isEmpty()) throw new ColaVacia("No hay clientes en la cola");
         System.out.println(colaClientes.getFirst().toString());
         return colaClientes.getFirst();
     }

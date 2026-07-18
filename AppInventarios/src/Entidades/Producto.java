@@ -1,3 +1,5 @@
+package Entidades;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -133,7 +135,7 @@ public class Producto {
 
     //toString
     public String toString(){
-        String cadena = "\nProducto: " + nombre +
+        String cadena = "\nEndidates.Producto: " + nombre +
                         "\nPrecio: " + precio +
                         "\nCategoria: " + categoria;
 

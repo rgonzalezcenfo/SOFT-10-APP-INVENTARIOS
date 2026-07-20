@@ -3,6 +3,7 @@ package LogicaDeNegocio;
 import Entidades.Producto;
 import Estructuras.ArbolProductos;
 import Excepciones.ArticuloYaExiste;
+import Excepciones.ProductoNoExiste;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class AdministradorArbolInventario {
 
             System.out.print("Nombre del producto: ");
 
-            nombreProducto = in.readLine();
+            nombreProducto = in.readLine().toLowerCase();
 
             if(!nombreProducto.trim().isEmpty()){
                 break;
@@ -230,23 +231,29 @@ public class AdministradorArbolInventario {
 
 
 
-    /*
-    public static void eliminarProducto() throws IOException {
+
+    public static void eliminarProducto(ArbolProductos inventarioProductos) throws IOException {
         String nombreProducto;
-        Endidates.Producto productoEliminado;
+        Producto productoEliminado = null;
         System.out.println("---Eliminar producto---");
         while(true){
             System.out.println("Ingrese el nombre del producto a elimnar");
-            nombreProducto = in.readLine().trim();
+            nombreProducto = in.readLine().toLowerCase().trim();
             if(!nombreProducto.isEmpty()){
                 break;
             }
             System.out.println("El parametro de busqueda no puede estar vacio");
         }
-         //productoEliminado = inventarioProductos.;
+
+        try {
+            productoEliminado = inventarioProductos.eliminar(nombreProducto);
+        } catch (ProductoNoExiste e){
+            System.out.println(e.getMessage());
+        }
+
         if(productoEliminado !=null){
             System.out.println("El producto: "+productoEliminado.getNombre()+" fue eliminado existosamente");
         }
-    }*/
+    }
 
 }

@@ -3,11 +3,22 @@ package Estructuras;
 import Entidades.Producto;
 import Excepciones.ArticuloYaExiste;
 import Excepciones.InventarioVacio;
+import Excepciones.ProductoNoExiste;
 
 public class ArbolProductos {
 
     //Atributos
     private Producto raiz;
+
+    //Getter y Setter
+
+    public Producto getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(Producto raiz) {
+        this.raiz = raiz;
+    }
 
     //Constructor
     public ArbolProductos() {
@@ -95,8 +106,54 @@ public class ArbolProductos {
         System.out.println(actual);
         inorden(actual.getDerecha());
     }
-    public void eliminar(Producto productoEliminar){
+    public Producto eliminar(String nombre) throws ProductoNoExiste{
+        if(estaVacio()) {
+            System.out.println("El inventario esta vacío");
+            return null;
+        }
 
+        Producto producto = buscar(nombre);
+        Producto padre;
+        Producto sucesor;
+        if(producto == null) throw new ProductoNoExiste("El nombre ingresado no corresponde a ningun Producto");
+
+        if ( producto == raiz) {
+            if(producto.getIzquierda() == null && producto.getDerecha() == null) setRaiz(null);
+            else if (producto.getDerecha() == null) setRaiz(producto.getIzquierda());
+            else if (producto.getIzquierda() == null) setRaiz(producto.getDerecha());
+            else {
+                sucesor = encontrarSucesor(producto);
+                sucesor.setIzquierda(raiz.getIzquierda());
+                setRaiz(sucesor);
+            }
+        }
+
+        else {
+            padre = encontrarPadre(producto.getNombre());
+            if(producto.getIzquierda() == null && producto.getDerecha() == null) {
+                if(padre.getIzquierda() == producto) padre.setIzquierda(null);
+                else padre.setDerecha(null);
+            }
+
+            else if (producto.getDerecha() == null){
+                if(padre.getIzquierda() == producto) padre.setIzquierda(producto.getIzquierda());
+                else padre.setDerecha(producto.getIzquierda());
+            }
+
+            else if (producto.getIzquierda() == null){
+                if(padre.getIzquierda() == producto) padre.setIzquierda(producto.getDerecha());
+                else padre.setDerecha(producto.getDerecha());
+            }
+
+            else {
+                sucesor = encontrarSucesor(producto);
+                sucesor.setIzquierda(producto.getIzquierda());
+                if(padre.getIzquierda() == producto) padre.setIzquierda(sucesor);
+                else padre.setDerecha(sucesor);
+            }
+        }
+
+        return producto;
     }
     private Producto encontrarSucesor(Producto producto){
         Producto padreSucesor = producto;
@@ -113,6 +170,31 @@ public class ArbolProductos {
         }
         return sucesor;
     }
+
+    private Producto encontrarPadre(String nombre){
+        if(estaVacio()) {
+            System.out.println("El inventario esta vacío");
+            return null;
+        }
+
+        Producto temp = raiz;
+        Producto padreTemp = raiz;
+
+
+        while(temp != null){
+            int comparacion = nombre.compareTo(temp.getNombre());
+
+            if (comparacion == 0) return padreTemp;
+            padreTemp = temp;
+            if (comparacion > 0 ) temp = temp.getDerecha();
+            else temp = temp.getIzquierda();
+
+        }
+
+        System.out.println("El nombre proporcionado no corresponde a ningun producto");
+        return null;
+    }
+
     public void reporteInventario(){
         System.out.println("==========Reporte de inventario==========");
         recorridoInorden();
@@ -136,7 +218,4 @@ public class ArbolProductos {
                 + actual.getPrecioTotal()
                 + calcularTotal(actual.getDerecha());
     }
-
-
-
 }

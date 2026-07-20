@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 
+import static LogicaDeNegocio.AdministradorArbolInventario.eliminarProducto;
+
 public class Menu {
     private static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
@@ -52,7 +54,7 @@ public class Menu {
                     break;
 
                 case "4":
-                    //eliminarProducto();
+                    eliminarProducto(tienda.getInnventario());
                     break;
                 case "5":
                     try {

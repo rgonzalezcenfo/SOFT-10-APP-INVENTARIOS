@@ -121,85 +121,106 @@ public class AdministradorArbolInventario {
         }while(true);
         System.out.println("Endidates.Producto agregado exitosamente");
     }
-
     public static void modificarProducto(ArbolProductos inventarioProductos) throws IOException {
         String nombreProducto;
         Producto productoModificar;
-        System.out.println("---Modificar producto---\n Deje el campo vacio para mantener el valor acual.");
+
+        System.out.println("---Modificar producto---");
+
         while(true){
             System.out.println("Ingrese el nombre del producto a buscar");
             nombreProducto = in.readLine().trim();
+
             if(!nombreProducto.isEmpty()){
                 break;
             }
+
             System.out.println("El parametro de busqueda no puede estar vacio");
         }
-        productoModificar =  inventarioProductos.buscar(nombreProducto);
+
+        productoModificar = inventarioProductos.buscar(nombreProducto);
+
         if(productoModificar == null){
             System.out.println("El producto solicitado no fue encontrado.");
             return;
         }
-        System.out.println("Nombre del producto: "+productoModificar.getNombre());
-        nombreProducto = in.readLine();
-        if(!nombreProducto.isBlank()){
-            productoModificar.setNombre(nombreProducto.trim());
-        }
+
+        System.out.println("Nombre del producto: " + productoModificar.getNombre());
+        System.out.println("El nombre del producto no puede ser modificado.");
+
         while(true) {
             System.out.println("Precio del producto: " + productoModificar.getPrecio());
             String precioProducto = in.readLine();
-            if (!precioProducto.isBlank()) {
+
+            if(!precioProducto.isBlank()) {
                 try{
-                    double nuevoprecio = Double.parseDouble(precioProducto);
-                    if(nuevoprecio<1){
+                    double nuevoPrecio = Double.parseDouble(precioProducto);
+
+                    if(nuevoPrecio < 1){
                         System.out.println("Debe ingresar un precio valido.");
                         continue;
                     }
-                    productoModificar.setPrecio(nuevoprecio);
+
+                    productoModificar.setPrecio(nuevoPrecio);
                     break;
-                }catch (NumberFormatException e){
+
+                }catch(NumberFormatException e){
                     System.out.println("Ingrese un numero valido");
                 }
             }else{
                 break;
             }
         }
-        System.out.println("Categoria del producto: "+productoModificar.getCategoria());
+
+        System.out.println("Categoria del producto: " + productoModificar.getCategoria());
         String nuevaCategoria = in.readLine();
+
         if(!nuevaCategoria.isBlank()){
             productoModificar.setCategoria(nuevaCategoria.trim());
         }
-        while (true){
-            System.out.println("Cantiad actual del producto: "+productoModificar.getCantidad());
-            String cantidadProduto = in.readLine();
-            if(!cantidadProduto.isBlank()){
+
+        while(true) {
+            System.out.println("Cantidad actual del producto: " + productoModificar.getCantidad());
+            String cantidadProducto = in.readLine();
+
+            if(!cantidadProducto.isBlank()){
                 try{
-                    int nuevaCantidad = Integer.parseInt(cantidadProduto);
-                    if(nuevaCantidad<1){
+                    int nuevaCantidad = Integer.parseInt(cantidadProducto);
+
+                    if(nuevaCantidad < 1){
                         System.out.println("Debe ingresar una cantidad valida.");
                         continue;
                     }
+
                     productoModificar.setCantidad(nuevaCantidad);
                     break;
-                }catch (NumberFormatException e){
+
+                }catch(NumberFormatException e){
                     System.out.println("Debe ingresar un numero valido");
                 }
             }else{
                 break;
             }
         }
+
         if(productoModificar.getFechaVencimiento() != null){
             while(true) {
-                System.out.println("Fecha de vencimiento del producto: " + productoModificar.getFechaVencimiento() + "\n Formato de la fecha (YYYY-MM-DD)");
+                System.out.println("Fecha de vencimiento del producto: " + productoModificar.getFechaVencimiento() + "\nFormato de la fecha (YYYY-MM-DD)");
                 String fechaDeVencimiento = in.readLine();
-                if (!fechaDeVencimiento.isBlank()) {
+
+                if(!fechaDeVencimiento.isBlank()) {
                     try {
                         LocalDate nuevaFechaDeVencimiento = LocalDate.parse(fechaDeVencimiento);
-                        if (nuevaFechaDeVencimiento.isBefore(LocalDate.now())){
+
+                        if(nuevaFechaDeVencimiento.isBefore(LocalDate.now())){
                             System.out.println("El producto se encuentra vencido.");
+                            continue;
                         }
+
                         productoModificar.setFechaVencimiento(nuevaFechaDeVencimiento);
                         break;
-                    }catch (Exception e){
+
+                    }catch(Exception e){
                         System.out.println("La fecha ingresada es invalida.");
                     }
                 }else{
@@ -210,49 +231,53 @@ public class AdministradorArbolInventario {
 
         System.out.println("Agregar nueva imagen: ");
         String agregarImagen = in.readLine();
+
         if(!agregarImagen.isBlank()) {
             String rutaImagen;
-            String contrinuar;
+            String continuar;
+
             do {
                 System.out.println("Ruta de la imagen: ");
                 rutaImagen = in.readLine();
-                productoModificar.agregarImagen(rutaImagen);
-                System.out.println("Desea agregar otra imagen? (Y/N)");
-                contrinuar = in.readLine();
-                if (contrinuar.trim().equalsIgnoreCase("y")) {
-                    continue;
-                } else {
-                    break;
+
+                if(!rutaImagen.isBlank()){
+                    productoModificar.agregarImagen(rutaImagen);
                 }
 
-            } while (true);
+                System.out.println("Desea agregar otra imagen? (Y/N)");
+                continuar = in.readLine();
+
+            }while(continuar.trim().equalsIgnoreCase("y"));
         }
+
+        System.out.println("Producto modificado exitosamente.");
     }
-
-
-
-
     public static void eliminarProducto(ArbolProductos inventarioProductos) throws IOException {
         String nombreProducto;
         Producto productoEliminado = null;
+
         System.out.println("---Eliminar producto---");
+
         while(true){
-            System.out.println("Ingrese el nombre del producto a elimnar");
+            System.out.println("Ingrese el nombre del producto a eliminar");
             nombreProducto = in.readLine().toLowerCase().trim();
+
             if(!nombreProducto.isEmpty()){
                 break;
             }
+
             System.out.println("El parametro de busqueda no puede estar vacio");
         }
 
         try {
             productoEliminado = inventarioProductos.eliminar(nombreProducto);
-        } catch (ProductoNoExiste e){
+        }catch (ProductoNoExiste e){
             System.out.println(e.getMessage());
+            return;
         }
 
-        if(productoEliminado !=null){
-            System.out.println("El producto: "+productoEliminado.getNombre()+" fue eliminado existosamente");
+        if(productoEliminado != null){
+            System.out.println("El producto: " + productoEliminado.getNombre() + " fue eliminado exitosamente");
         }
     }
 

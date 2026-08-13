@@ -46,7 +46,7 @@ public class AdministradorCola {
             System.out.println("Cliente:");
             System.out.println(usuarioAtender);
             System.out.println("Camino mas corto:");
-            System.out.println(String.join(" -> ", camino));
+            System.out.println(String.join(" <- ", camino));
             System.out.println("Distancia total: " + distancia);
             System.out.println("\n========== FACTURA ==========");
             usuarioAtender.getCarritoUsuario().reporteCostos();

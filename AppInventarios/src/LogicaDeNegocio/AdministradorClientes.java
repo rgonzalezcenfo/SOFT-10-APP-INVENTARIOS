@@ -88,7 +88,13 @@ public class AdministradorClientes {
         // Llenar carrito a partir del inventario disponible
         llenarCarrito(usuario, inventario);
 
-        usuario.getCarritoUsuario().mostrar();
+        // El cliente puede haber cancelado la seleccion, en cuyo caso el
+        // carrito queda vacio y no hay nada que mostrar.
+        try {
+            usuario.getCarritoUsuario().mostrar();
+        } catch (CarritoVacio e) {
+            System.out.println(e.getMessage());
+        }
 
         return usuario;
     }

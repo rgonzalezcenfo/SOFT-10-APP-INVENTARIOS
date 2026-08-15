@@ -77,6 +77,10 @@ public class Menu {
                     case "9":
                         ejecutando = false;
                         break;
+
+                    default:
+                        System.out.println("La opcion seleccionada no es valida. Ingrese un numero del 1 al 9.");
+                        break;
                 }
             }
         } catch (IOException e) {

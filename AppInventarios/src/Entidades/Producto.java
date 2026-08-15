@@ -3,15 +3,25 @@ package Entidades;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Representa un articulo del inventario de la tienda.
+ *
+ * Ademas de sus datos propios, la clase cumple el papel de nodo del arbol
+ * binario de busqueda ArbolProductos: los atributos izquierda y derecha
+ * son las referencias a los subarboles, y el nombre es la llave por la que
+ * se ordenan e identifican los productos de forma unica.
+ */
 public class Producto {
 
     //Atributos
     private String nombre;
     private double precio;
     private String categoria;
+    // Solo se usa en productos perecederos; en el resto queda en null.
     private LocalDate fechaVencimiento;
     private int cantidad;
     private ArrayList<String> listaImagenes;
+    // Referencias que convierten al producto en nodo del arbol.
     private Producto izquierda;
     private Producto derecha;
 
@@ -50,6 +60,7 @@ public class Producto {
         return precio;
     }
 
+    // Valor acumulado de todas las unidades disponibles del producto.
     public double getPrecioTotal(){
         return precio*cantidad;
     }
@@ -118,7 +129,8 @@ public class Producto {
         listaImagenes.addLast(rutaImagen);
     }
 
-    //equals
+    //equals: dos productos son el mismo si comparten el nombre, que es la
+    //llave unica del arbol
     public boolean equals(Producto producto){
         return this.nombre.equals(producto.nombre);
     }

@@ -3,6 +3,7 @@ package LogicaDeNegocio;
 import Entidades.Usuario;
 import Estructuras.ArbolProductos;
 import Excepciones.CarritoVacio;
+import Excepciones.InventarioVacio;
 import Excepciones.ProductoNoExiste;
 
 import java.io.BufferedReader;
@@ -114,7 +115,9 @@ public class AdministradorClientes {
                         usuario
                 );
 
-            } catch (CarritoVacio | ProductoNoExiste | IOException e) {
+            } catch (CarritoVacio | ProductoNoExiste | InventarioVacio | IOException e) {
+                // InventarioVacio se produce al intentar listar el inventario
+                // cuando todavia no hay productos registrados.
                 System.out.println(e.getMessage());
             }
 

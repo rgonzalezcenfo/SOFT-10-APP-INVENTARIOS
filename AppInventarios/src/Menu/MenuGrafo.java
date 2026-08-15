@@ -16,20 +16,24 @@ public class MenuGrafo {
         boolean ejecutando = true;
         while (ejecutando) {
             System.out.println("\n========== GESTION DEL GRAFO ==========");
-            System.out.println("1- Agregar ubicacion");
-            System.out.println("2- Agregar conexion");
-            System.out.println("3- Salir");
+            System.out.println("1- Mostrar el mapa de ubicaciones");
+            System.out.println("2- Agregar ubicacion");
+            System.out.println("3- Agregar conexion");
+            System.out.println("4- Salir");
             System.out.println("---------------------------------------");
             System.out.print("Seleccione una opcion: ");
             String opcion = in.readLine();
             switch (opcion) {
                 case "1":
-                    agregarUbicacion(tienda);
+                    mostrarMapa(tienda);
                     break;
                 case "2":
-                    agregarConexion(tienda);
+                    agregarUbicacion(tienda);
                     break;
                 case "3":
+                    agregarConexion(tienda);
+                    break;
+                case "4":
                     ejecutando = false;
                     break;
                 default:
@@ -37,6 +41,16 @@ public class MenuGrafo {
                     break;
             }
         }
+    }
+
+    // Muestra cada ubicacion del grafo junto con las ubicaciones
+    // vecinas y la distancia que las separa.
+    private static void mostrarMapa(Tienda tienda) {
+
+        System.out.println("\n========== MAPA DE UBICACIONES ==========");
+        System.out.println("Ubicacion de la tienda: " + tienda.getUbicacion());
+        System.out.println("Formato: ubicacion -> (vecino,distancia)\n");
+        tienda.getGrafo().mostrarGrafo();
     }
 
     private static void agregarUbicacion(Tienda tienda) throws IOException {
